@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/01/25 10:26:06 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/01/25 10:43:01 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ class CV_filler:
         return cv
 
     def writeCV(self, cv):
-        with open(f"output/{self.getDate()}_CV_filled.md", "w") as cvFile:
+        #get company name from json and replace spaces with _
+        company_name = self.getJsonData()['{company name}'].replace(' ', '_')
+        with open(f"output/{self.getDate()}_{company_name}_CV_filled.md", "w") as cvFile:
             cvFile.write(cv)
     
     def main(self):

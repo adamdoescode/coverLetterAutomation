@@ -1,8 +1,8 @@
 {
     "details":{
-        "{company address}": "default",
-        "{company name}": "default",
-        "{position}": "default",
-        "{location}":"default"
+        "{company address}": "Continuum Recruitment",
+        "{company name}": "the global company",
+        "{position}": "Data Analyst",
+        "{location}":"Perth, WA"
     }
 }
