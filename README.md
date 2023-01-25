@@ -11,3 +11,8 @@ So I have two ideas about how to do this:
 
 I will try the python route first as I find the text manipulation is more effective there.
 
+## python approach design
+
+- a template.md file (`resume_text_blanks.md`) which acts as the template for the cover letter
+- 
+
