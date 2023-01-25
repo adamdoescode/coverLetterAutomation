@@ -13,7 +13,7 @@ I will try the python route first as I find the text manipulation is more effect
 
 ## python approach design
 
-- a template.md file (`resume_text_blanks.md`) which acts as the template for the cover letter
+- a template.md file (`CV_template.md`) which acts as the template for the cover letter
 - a python script (`CV_filler.py`) which will fill in the blanks
 - a JSON file (`CV.json`) which will contain the data to fill in the blanks
 
