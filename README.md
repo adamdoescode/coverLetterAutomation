@@ -21,3 +21,11 @@ The python script will read in the template and JSON and output a new file with 
 
 Once that is functional I will write a wrapper script that can convert the md file to a docx file and a pdf file.
 
+## TODO
+
+- [x] write CV_filler.py to fill in the blanks
+- [ ] add date to output file, and send it to a dedicated sub folder (add this to .gitignore!)
+- [ ] move input files to dedicated dir
+- [ ] automate conversion to docx and pdf with pandoc
+
+

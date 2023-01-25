@@ -6,7 +6,7 @@
 #    By: adam <adam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/01/25 10:00:25 by adam             ###   ########.fr        #
+#    Updated: 2023/01/25 10:08:19 by adam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ class CV_filler:
         self.cvTemplate = "resume_text_blanks.md"
     
     def getJsonData(self):
-        with open(self.jsonData, "r") as jsonFile:
+        with open(f'input/{self.jsonData}', "r") as jsonFile:
             data = json.load(jsonFile)
         return data['details']
 
     def getCVTemplate(self):
-        with open(self.cvTemplate, "r") as cvFile:
+        with open(f'input/{self.cvTemplate}', "r") as cvFile:
             data = cvFile.read()
         return data
     
@@ -49,7 +49,7 @@ class CV_filler:
         return cv
 
     def writeCV(self, cv):
-        with open("resume_filled.md", "w") as cvFile:
+        with open(f"output/{self.getDate()}_resume_filled.md", "w") as cvFile:
             cvFile.write(cv)
     
     def main(self):
