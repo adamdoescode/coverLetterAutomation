@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/01/25 10:43:01 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/01/25 16:32:45 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ class CV_filler:
     def writeCV(self, cv):
         #get company name from json and replace spaces with _
         company_name = self.getJsonData()['{company name}'].replace(' ', '_')
-        with open(f"output/{self.getDate()}_{company_name}_CV_filled.md", "w") as cvFile:
+        self.outputFileName = f"output/{self.getDate()}_{company_name}_CV_filled"
+        with open(f"{self.outputFileName}.md", "w") as cvFile:
             cvFile.write(cv)
     
     def main(self):
@@ -61,4 +62,7 @@ class CV_filler:
 
 
 if __name__ == "__main__":
-    CV_filler().main()
+    CVmaker = CV_filler()
+    CVmaker.main() #fill the CV, CV maker now has a file name to use
+    #use pandoc to convert md to docx
+    os.system(f"pandoc {CVmaker.outputFileName}.md -o {CVmaker.outputFileName}.docx")
