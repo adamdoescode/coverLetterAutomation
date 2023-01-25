@@ -1,12 +1,12 @@
-{company address}
+default
 
-{date}
+{2023-01-25}
 
-To the team at {company name},
+To the team at default,
 
-I wish to apply for your advertised role of a {position} in {location}. I can provide your team with my years of experience in research. I am experienced in data analysis in a research context and am an enthusiastic student of biostatistics. I can provide {company name} with my experience in processing biological data. I am capable of processing datasets in Excel, R, python, and am very comfortable using the unix command line and various CLI tools such as grep/ripgrep, awk, and vim.
+I wish to apply for your advertised role of a default in default. I can provide your team with my years of experience in research. I am experienced in data analysis in a research context and am an enthusiastic student of biostatistics. I can provide default with my experience in processing biological data. I am capable of processing datasets in Excel, R, python, and am very comfortable using the unix command line and various CLI tools such as grep/ripgrep, awk, and vim.
 
-The skills I can bring to {company name} include:
+The skills I can bring to default include:
 
     • Experience in using R, python, the unix terminal, and building simple static websites
     • Experience accessing and processing data from online databases using APIs
