@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/02/14 16:42:46 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/02/14 16:51:42 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ class CV_filler:
     def getCVTemplate(self):
         with open(f'{self.cvTemplate}', "r") as cvFile:
             data = cvFile.read()
-        return data
+        self.cvText = data
 
     def getDate(self):
         '''date is easier to get from python'''
@@ -60,7 +60,8 @@ class CV_filler:
 
     def fillCV(self):
         data = self.getJsonData()
-        self.cvText = self.getCVTemplate()
+        self.getCVTemplate() # get the template text
+        # creates the cvText attribute with string data in it
         for key in data.keys():
             self.cvText = self.cvText.replace(key, data[key])
         # do the date separately
