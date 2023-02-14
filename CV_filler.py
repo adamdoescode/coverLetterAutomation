@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/02/14 16:40:07 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/02/14 16:42:46 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,12 +60,12 @@ class CV_filler:
 
     def fillCV(self):
         data = self.getJsonData()
-        cv = self.getCVTemplate()
+        self.cvText = self.getCVTemplate()
         for key in data.keys():
-            cv = cv.replace(key, data[key])
+            self.cvText = self.cvText.replace(key, data[key])
         # do the date separately
-        cv = cv.replace("{date}", self.getDate())
-        return cv
+        self.cvText = self.cvText.replace("{date}", self.getDate())
+        return self.cvText
 
     def writeCV(self, cv):
         # get company name from json and replace spaces with _

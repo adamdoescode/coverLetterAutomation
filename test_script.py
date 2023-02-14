@@ -64,3 +64,15 @@ def test_writeCV():
     )
     cv.writeCV(cv.fillCV())
     assert os.path.exists(cv.outputFileName + ".md")
+
+def test_textReplacement():
+    '''
+    Ensure cv text is replaced with data from json file
+    '''
+    cv = CV_filler.CV_filler(
+        jsonData="testFiles/CV.json", 
+        cvTemplate="testFiles/CV_template.md",
+        outputDir="testOutput/"
+    )
+    #check text is present in object text
+    assert "Business Team" in cv.fillCV()
