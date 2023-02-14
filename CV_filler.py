@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/02/14 16:23:30 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/02/14 16:40:07 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ def parseArgs():
     parser.add_argument(
         '-i', '--input', help='path to json file', dest='jsonInput', default='input/CV.json')
     parser.add_argument(
+        '-o', '--output', help='output directory, defaults to output/', dest='outputDir', default='output/')
+    parser.add_argument(
         '-t', '--template', help='path to CV template', dest='templateInput', default='input/CV_template.md')
     return parser.parse_args()
 
@@ -34,9 +36,12 @@ def parseArgs():
 
 
 class CV_filler:
-    def __init__(self, jsonData="CV.json", cvTemplate="CV_template.md"):
+    def __init__(
+        self, jsonData="CV.json", cvTemplate="CV_template.md", outputDir="output/"
+    ):
         self.jsonData = jsonData
         self.cvTemplate = cvTemplate
+        self.outputDir = outputDir
 
     def getJsonData(self):
         with open(f'{self.jsonData}', "r") as jsonFile:
@@ -65,7 +70,7 @@ class CV_filler:
     def writeCV(self, cv):
         # get company name from json and replace spaces with _
         company_name = self.getJsonData()['{company name}'].replace(' ', '_')
-        self.outputFileName = f"output/{self.getDate()}_{company_name}_CV_filled"
+        self.outputFileName = f"{self.outputDir}/{self.getDate()}_{company_name}_CV_filled"
         with open(f"{self.outputFileName}.md", "w") as cvFile:
             cvFile.write(cv)
 
