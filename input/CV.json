@@ -1,8 +1,8 @@
 {
     "details":{
-        "{company address}": "125 St Georges Terrace, Perth WA 6000",
-        "{company name}": "BHP",
-        "{position}": "Specialist Data Analyst",
-        "{location}":"Perth, WA (or Brisbane)"
+        "{company address}": "company address",
+        "{company name}": "Business Team",
+        "{position}": "Data analyst",
+        "{location}":"Nedlands, WA"
     }
 }
