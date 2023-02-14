@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/02/14 16:51:42 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/02/15 07:46:46 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ A simple script to fill the CV with the data from the json file
 '''
 
 import json
-import sys
 import argparse
 import os
 
@@ -24,11 +23,17 @@ def parseArgs():
     parser = argparse.ArgumentParser(
         description='Fill CV with data from json file')
     parser.add_argument(
-        '-i', '--input', help='path to json file', dest='jsonInput', default='input/CV.json')
+        '-i', '--input', help='path to json file', 
+        dest='jsonInput', default='input/CV.json')
     parser.add_argument(
-        '-o', '--output', help='output directory, defaults to output/', dest='outputDir', default='output/')
+        '-p', '--privateInput', help='path to json file', 
+        dest='privateJsonInput', default='privateInput/privateInput.json')
     parser.add_argument(
-        '-t', '--template', help='path to CV template', dest='templateInput', default='input/CV_template.md')
+        '-o', '--output', help='output directory, defaults to output/', 
+        dest='outputDir', default='output/')
+    parser.add_argument(
+        '-t', '--template', help='path to CV template', 
+        dest='templateInput', default='input/CV_template.md')
     return parser.parse_args()
 
 # we can hardcode the path to the json file, assumes has a specific name
@@ -37,7 +42,11 @@ def parseArgs():
 
 class CV_filler:
     def __init__(
-        self, jsonData="CV.json", cvTemplate="CV_template.md", outputDir="output/"
+        self,
+        jsonData="CV.json",
+        privateJsonData="privateInput/private_CV.json",
+        cvTemplate="CV_template.md",
+        outputDir="output/"
     ):
         self.jsonData = jsonData
         self.cvTemplate = cvTemplate
@@ -60,12 +69,22 @@ class CV_filler:
 
     def fillCV(self):
         data = self.getJsonData()
-        self.getCVTemplate() # get the template text
+        self.getCVTemplate()  # get the template text
         # creates the cvText attribute with string data in it
         for key in data.keys():
             self.cvText = self.cvText.replace(key, data[key])
         # do the date separately
         self.cvText = self.cvText.replace("{date}", self.getDate())
+        return self.cvText
+
+    def privateFillCV(self):
+        '''
+        Pull in private details from a separate json file held outside the git repo
+        '''
+        with open(f'{self.jsonData}', "r") as jsonFile:
+            privateData = json.load(jsonFile)["privateDetails"]
+        for key in privateData.keys():
+            self.cvText = self.cvText.replace(key, privateData[key])
         return self.cvText
 
     def writeCV(self, cv):
