@@ -6,7 +6,7 @@
 #    By: Adam Graham <13943324+adamdoescode@user    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/25 09:31:07 by adam              #+#    #+#              #
-#    Updated: 2023/02/15 07:46:46 by Adam Graham      ###   ########.fr        #
+#    Updated: 2023/02/15 08:22:59 by Adam Graham      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,14 @@ class CV_filler:
     def __init__(
         self,
         jsonData="CV.json",
-        privateJsonData="privateInput/private_CV.json",
+        privateJsonData="privateInput/privateInput.json",
         cvTemplate="CV_template.md",
         outputDir="output/"
     ):
         self.jsonData = jsonData
         self.cvTemplate = cvTemplate
         self.outputDir = outputDir
+        self.privateJsonData = privateJsonData
 
     def getJsonData(self):
         with open(f'{self.jsonData}', "r") as jsonFile:
@@ -81,22 +82,23 @@ class CV_filler:
         '''
         Pull in private details from a separate json file held outside the git repo
         '''
-        with open(f'{self.jsonData}', "r") as jsonFile:
-            privateData = json.load(jsonFile)["privateDetails"]
+        with open(f'{self.privateJsonData}', "r") as privateJsonFile:
+            privateData = json.load(privateJsonFile)["privateDetails"]
         for key in privateData.keys():
             self.cvText = self.cvText.replace(key, privateData[key])
         return self.cvText
 
-    def writeCV(self, cv):
+    def writeCV(self):
         # get company name from json and replace spaces with _
         company_name = self.getJsonData()['{company name}'].replace(' ', '_')
         self.outputFileName = f"{self.outputDir}/{self.getDate()}_{company_name}_CV_filled"
         with open(f"{self.outputFileName}.md", "w") as cvFile:
-            cvFile.write(cv)
+            cvFile.write(self.cvText)
 
     def main(self):
-        cv = self.fillCV()
-        self.writeCV(cv)
+        self.fillCV()
+        self.privateFillCV()
+        self.writeCV()
 
 
 if __name__ == "__main__":

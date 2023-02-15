@@ -6,7 +6,9 @@ import CV_filler
 import os
 
 TEST_JSON_DATA = "testFiles/CV.json"
+TEST_PRIVATE_JSON_DATA = "testFiles/privateInput.json"
 TEST_TEMPLATE = "testFiles/CV_template.md"
+TEST_OUTPUT_DIR = "testOutput/"
 
 #test parseArgs()
 def test_parseArgs():
@@ -24,11 +26,11 @@ def test_args():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
     assert cv.jsonData == TEST_JSON_DATA
     assert cv.cvTemplate == TEST_TEMPLATE
-    assert cv.outputDir == "testOutput/"
+    assert cv.outputDir == TEST_OUTPUT_DIR
 
 def test_getJsonData():
     '''
@@ -37,7 +39,7 @@ def test_getJsonData():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
     assert cv.getJsonData() == {
         "{company address}": "company address",
@@ -53,7 +55,7 @@ def test_getCVTemplate():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
     cv.getCVTemplate()
     assert cv.cvText
@@ -66,9 +68,9 @@ def test_writeCV():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
-    cv.writeCV(cv.fillCV())
+    cv.main()
     assert os.path.exists(cv.outputFileName + ".md")
 
 def test_textPresentBeforeReplacement():
@@ -78,7 +80,7 @@ def test_textPresentBeforeReplacement():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
     #need to get CV template
     cv.getCVTemplate()
@@ -93,7 +95,7 @@ def test_textReplaced():
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
         cvTemplate=TEST_TEMPLATE,
-        outputDir="testOutput/"
+        outputDir=TEST_OUTPUT_DIR
     )
     #need to get CV template
     cv.getCVTemplate()
@@ -101,3 +103,52 @@ def test_textReplaced():
     for key in cv.getJsonData().keys():
         assert key not in cv.fillCV()
 
+def test_privateJson_tags_in_template():
+    '''
+    Test the private json data is output into the template
+    '''
+    cv = CV_filler.CV_filler(
+        jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
+        cvTemplate=TEST_TEMPLATE,
+        outputDir=TEST_OUTPUT_DIR
+    )
+    cv.getCVTemplate()
+    assert cv.cvText
+    #get info from test private json file
+    with open(TEST_PRIVATE_JSON_DATA) as f:
+        privateData = json.load(f)['privateDetails']
+    for key in privateData.keys():
+        assert key in cv.cvText
+
+def test_privateJson_tags_replaced_in_output():
+    '''
+    Test the private json data is output into the template
+    '''
+    cv = CV_filler.CV_filler(
+        jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
+        cvTemplate=TEST_TEMPLATE,
+        outputDir=TEST_OUTPUT_DIR
+    )
+    cv.getCVTemplate()
+    assert cv.cvText
+    cv.privateFillCV()
+    #get info from test private json file
+    with open(TEST_PRIVATE_JSON_DATA) as f:
+        privateData = json.load(f)['privateDetails']
+    for key in privateData.keys():
+        assert privateData[key] in cv.cvText
+
+# if main, for deb
+if __name__ == "__main__":
+    test_parseArgs()
+    test_args()
+    test_getJsonData()
+    test_getCVTemplate()
+    test_writeCV()
+    test_textPresentBeforeReplacement()
+    test_textReplaced()
+    test_privateJson_tags_in_template()
+    test_privateJson_tags_replaced_in_output()
+    print("All tests passed")
