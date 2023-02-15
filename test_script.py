@@ -25,6 +25,7 @@ def test_args():
     '''
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
@@ -38,6 +39,7 @@ def test_getJsonData():
     '''
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
@@ -53,7 +55,8 @@ def test_getCVTemplate():
     Test the getCVTemplate method
     '''
     cv = CV_filler.CV_filler(
-        jsonData=TEST_JSON_DATA, 
+        jsonData=TEST_JSON_DATA,
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
@@ -67,6 +70,7 @@ def test_writeCV():
     '''
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
@@ -79,6 +83,7 @@ def test_textPresentBeforeReplacement():
     '''
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
@@ -94,6 +99,7 @@ def test_textReplaced():
     '''
     cv = CV_filler.CV_filler(
         jsonData=TEST_JSON_DATA, 
+        privateJsonData=TEST_PRIVATE_JSON_DATA,
         cvTemplate=TEST_TEMPLATE,
         outputDir=TEST_OUTPUT_DIR
     )
